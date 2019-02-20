@@ -1,8 +1,0 @@
-"0","# Use names() and str() on the model element
-names(tricky_list[[""model""]])
-"
-"1","[1]"
-"1"," ""mpg"""
-"1"," ""wt"" "
-"1","
-"

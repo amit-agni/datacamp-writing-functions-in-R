@@ -1,6 +1,0 @@
-"0","for (i in 1:ncol(empty_df)) {
-  print(median(empty_df[[i]]))
-}
-"
-"2","Error in .subset2(x, i, exact = exact) : subscript out of bounds
-"

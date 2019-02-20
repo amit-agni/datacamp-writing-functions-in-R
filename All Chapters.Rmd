@@ -11,7 +11,7 @@ library(pacman)
 
 ```
 
-## Chapter 1 : A quick refresher by Hadley Wickham
+## Chapter 1 : A quick refresher 
 * Every function has 3 parts : formals, body and environment
 * Last evaulated expression will be returned by the function
 * return(value) should be used as special case and not routinely as it forces the function to stop execution and return the value
