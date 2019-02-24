@@ -651,46 +651,67 @@ walk2(sims, breaks_list, hist)</code></pre>
 </div>
 <div id="summary" class="section level1">
 <h1>Summary</h1>
+<p>Most of the course is run by Hadley Wickham’s sister. The initial introduction in each chapter is given Hadley. Its a basic course and can be completed quickly if you are already using R. It gives a good introduction to the purrr::map functions.<br />
+Some content that I liked in this course is summarised below :</p>
 <ul>
 <li>Lists :
 <ul>
 <li>[ extracts a sublist</li>
-<li>[[ and $ extracts elements, remove a level of hierarchy</li>
+<li>[[ and $ extracts elements, remove a level of hierarchy<br />
+<br></li>
 </ul></li>
-<li>always allocate sufficient space for the output, let’s say an object called output. This is very important for efficiency: if you grow the for loop at each iteration (e.g. using c()), your for loop will be very slow.
-<ul>
-<li>eg : output &lt;- vector(mode=“double”) and then in a loop output[[i]] &lt;- median(df[[i]])</li>
-</ul></li>
+<li><p>R looks for the variable in the environment 1 level up</p></li>
 <li><p>A data frame is build on top a list, with the columns being the sublists</p></li>
-<li>A general way of creating an empty vector of given length is the vector() function. It has two arguments: the type of the vector (“logical”, “integer”, “double”, “character”, etc.) and the length of the vector.
+<li>A general way of creating an empty vector of given length is the vector() function.
 <ul>
-<li>eg vector(mode = “double”,length = ncol(df))</li>
+<li>It has two arguments: the type of the vector (“logical”, “integer”, “double”, “character”, etc.) and the length of the vector.</li>
+<li>eg vector(mode = “double”,length = ncol(df))<br />
+<br></li>
 </ul></li>
-<li>~ and . can be used for specifying anonymous functions
+<li>Saving loop output.
 <ul>
-<li>map_dbl(df, function(x) sum(is.na(x)))</li>
-<li>map_dbl(df, ~sum(is.na(.)))</li>
+<li>Always allocate sufficient space for the output, let’s say an object called output. This is very important for efficiency</li>
+<li>if you grow the for loop at each iteration (e.g. using c()), your for loop will be very slow.</li>
+<li><strong>eg : output &lt;- vector(mode=“double”) and then in a loop output[[i]] &lt;- median(df[[i]])</strong><br />
+<br></li>
+</ul></li>
+<li><p>Use the base functions warning() and message() for error handling inside a function</p></li>
+<li><p><strong>map(mtcars,summary)</strong> will apply the summary function to each column</p></li>
+<li>~ and . can be used as shortcut for specifying anonymous functions
+<ul>
+<li>map_dbl(df, function(x) sum(is.na(x))) is same as <strong>map_dbl(df, ~sum(is.na(.)))</strong></li>
+<li>create 3 lists and run lm on each
+<ul>
+<li>cyl &lt;- split(mtcars,mtcars$cyl)<br />
+<strong>map(cyl, ~ lm(mpg ~ wt, data = .))</strong> <br><br />
+</li>
+</ul></li>
 </ul></li>
 <li>models &lt;- map(cyl, ~ lm(mpg ~ wt, data = .))
 <ul>
-<li>Use map and coef to get the coefficients for each model : coefs &lt;- map(models, coef)</li>
-<li>Use string shortcut to extract the wt coefficient map(coefs, “wt”)</li>
+<li>Use map and coef to get the coefficients for each model : <strong>coefs &lt;- map(models, coef)</strong></li>
+<li>Use string shortcut to extract the wt coefficient <strong>map(coefs, “wt”)</strong><br />
+</li>
+<li>use map_dbl with the numeric shortcut to pull out the second element <strong>map_dbl(coefs, 2)</strong><br />
+<br></li>
 </ul></li>
-<li><p>use map_dbl with the numeric shortcut to pull out the second element map_dbl(coefs, 2)</p></li>
 <li><p>safely(), possibly(), quietly()</p></li>
 <li>Multiple arguments
 <ul>
 <li>map2 allows to add second argument map2(.x,.y, .f , ..)</li>
 <li>pmap() - multiple arguments</li>
-<li>invoke_map() - iterate over functions and arguments</li>
+<li>invoke_map() - iterate over functions and arguments<br />
+<br></li>
 </ul></li>
 <li>Maps with side effects
 <ul>
 <li>walk() operates just like map() except it’s designed for functions that don’t return anything. You use walk() for functions with side effects like printing, plotting or saving.</li>
-<li>walk2() ad pwalk() for 2 or more arguments</li>
+<li>walk2() and pwalk() for 2 or more arguments<br />
+<br></li>
 </ul></li>
 <li><p>stopifnot() and stop() for error messages</p></li>
 </ul>
+<hr />
 </div>
 
 

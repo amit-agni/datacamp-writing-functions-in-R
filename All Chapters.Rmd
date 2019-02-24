@@ -435,45 +435,53 @@ walk2(sims, breaks_list, hist)
 
 
 # Summary
+Most of the course is run by Hadley Wickham's sister. The initial introduction in each chapter is given Hadley. Its a basic course and can be completed quickly if you are already using R. It gives a good introduction to the purrr::map functions.   
+Some content that I liked in this course is summarised below :
 
 * Lists :
     + [ extracts a sublist
-    + [[ and $ extracts elements, remove a level of hierarchy
-
-* always allocate sufficient space for the output, let's say an object called output. This is very important for efficiency: if you grow the for loop at each iteration (e.g. using c()), your for loop will be very slow. 
-    + eg : output <- vector(mode="double") and then in a loop output[[i]] <- median(df[[i]])   
-    
+    + [[ and $ extracts elements, remove a level of hierarchy  
+<br>
+* R looks for the variable in the environment 1 level up
 
 * A data frame is build on top a list, with the columns being the sublists
 
+* A general way of creating an empty vector of given length is the vector() function. 
+    + It has two arguments: the type of the vector (“logical”, “integer”, “double”, “character”, etc.) and the length of the vector.
+    + eg  vector(mode = "double",length = ncol(df))  
+<br>
+* Saving loop output. 
+    + Always allocate sufficient space for the output, let's say an object called output. This is very important for efficiency
+    + if you grow the for loop at each iteration (e.g. using c()), your for loop will be very slow. 
+    + **eg : output <- vector(mode="double") and then in a loop output[[i]] <- median(df[[i]])**  
+<br>
+* Use the base functions warning() and message() for error handling inside a function
 
-* A general way of creating an empty vector of given length is the vector() function. It has two arguments: the type of the vector (“logical”, “integer”, “double”, “character”, etc.) and the length of the vector.
-    + eg  vector(mode = "double",length = ncol(df))
+* **map(mtcars,summary)** will apply the summary function to each column  
 
-* ~ and . can be used for specifying anonymous functions
-     + map_dbl(df, function(x) sum(is.na(x)))
-     + map_dbl(df, ~sum(is.na(.)))  
-     
-     
+* ~ and . can be used as shortcut for specifying anonymous functions
+     + map_dbl(df, function(x) sum(is.na(x))) is same as **map_dbl(df, ~sum(is.na(.)))** 
+     + create 3 lists and run lm on each
+        + cyl <- split(mtcars,mtcars$cyl)  
+**map(cyl, ~ lm(mpg ~ wt, data = .))**
+<br>  
 * models <- map(cyl, ~ lm(mpg ~ wt, data = .))
-    + Use map and coef to get the coefficients for each model : coefs <- map(models, coef)
-    + Use string shortcut to extract the wt coefficient map(coefs, "wt")   
-    
-
-* use map_dbl with the numeric shortcut to pull out the second element map_dbl(coefs, 2)
-
+    + Use map and coef to get the coefficients for each model : **coefs <- map(models, coef)**
+    + Use string shortcut to extract the wt coefficient **map(coefs, "wt")**  
+    + use map_dbl with the numeric shortcut to pull out the second element **map_dbl(coefs, 2)**  
+<br>
 * safely(), possibly(), quietly()
 
 * Multiple arguments
     + map2 allows to add second argument map2(.x,.y, .f , ..)
     + pmap() - multiple arguments
     + invoke_map() - iterate over functions and arguments  
-    
-
+<br>
 * Maps with side effects
     + walk() operates just like map() except it’s designed for functions that don’t return anything. You use walk() for functions with side effects like printing, plotting or saving.
-    + walk2() ad pwalk() for 2 or more arguments  
-    
-    
+    + walk2() and pwalk() for 2 or more arguments  
+<br>
 * stopifnot() and stop() for error messages
+
+***
 
